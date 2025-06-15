@@ -177,6 +177,19 @@ void HDMICEC::try_builtin_handler_(uint8_t source, uint8_t destination, const st
       break;
     }
 
+    case 0x80: {
+      // reply with "Report Power Status" (0x90)
+      // send(address_, source, {0x90, 0x00}); // "On"
+      Serial.println("Blocking HDMI-CEC bus for 2 seconds...");
+      unsigned long startTime = millis();
+      while (millis() - startTime < 2000) { // Run for 2 seconds
+          send(address_, source, {0x90, 0x00}); // "On"
+          send(address_, source, {0x00, opcode, 0x00});
+          delayMicroseconds(500);
+      }
+      break;
+    }
+
     // "Give OSD Name" request
     case 0x46: {
       // reply with "Set OSD Name" (0x47)
