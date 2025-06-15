@@ -182,13 +182,16 @@ void HDMICEC::try_builtin_handler_(uint8_t source, uint8_t destination, const st
     // "Give Physical Address" request
     case 0x83: {
       // reply with "Report Physical Address" (0x84)
-      auto physical_address_bytes = decode_value(physical_address_);
-      std::vector<uint8_t> data = { 0x84 };
-      data.insert(data.end(), physical_address_bytes.begin(), physical_address_bytes.end());
-      // Device Type
-      data.push_back(logical_address_to_device_type(address_));
-      // Broadcast Physical Address
-      send(address_, 0xF, data);
+      // auto physical_address_bytes = decode_value(physical_address_);
+      // std::vector<uint8_t> data = { 0x84 };
+      // data.insert(data.end(), physical_address_bytes.begin(), physical_address_bytes.end());
+      // // Device Type
+      // data.push_back(logical_address_to_device_type(address_));
+      // // Broadcast Physical Address
+      // send(address_, 0xF, data);
+
+      // Commented out for personal use: device should not report address
+      // Only listen and send commands (Fixes stuck in infinite loop of send() making CEC unresponsive)
       break;
     }
 
