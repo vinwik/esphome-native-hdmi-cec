@@ -166,7 +166,14 @@ void HDMICEC::try_builtin_handler_(uint8_t source, uint8_t destination, const st
     // "Give Device Power Status" request
     case 0x8F: {
       // reply with "Report Power Status" (0x90)
-      send(address_, source, {0x90, 0x00}); // "On"
+      // send(address_, source, {0x90, 0x00}); // "On"
+      Serial.println("Blocking HDMI-CEC bus for 2 seconds...");
+      unsigned long startTime = millis();
+      while (millis() - startTime < 2000) { // Run for 2 seconds
+          send(address_, source, {0x90, 0x00}); // "On"
+          send(address_, source, {0x00, opcode, 0x00});
+          delayMicroseconds(500);
+      }
       break;
     }
 
