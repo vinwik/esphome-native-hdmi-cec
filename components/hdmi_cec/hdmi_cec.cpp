@@ -113,6 +113,52 @@ void HDMICEC::loop() {
     if (is_directly_addressed && !handled_by_trigger) {
       try_builtin_handler_(src_addr, dest_addr, data);
     }
+
+    if (data.empty()) {
+      return;
+    }
+  
+    uint8_t opcode = data[0];
+    switch (opcode) {
+      // "Give Device Power Status" request
+      case 0x8F: {
+        // reply with "Report Power Status" (0x90)
+        // send(address_, source, {0x90, 0x00}); // "On"
+        ESP_LOGD(TAG, "0x8f Blocking HDMI-CEC bus for 2 seconds...");
+        unsigned long startTime = millis();
+        while (millis() - startTime < 2000) { // Run for 2 seconds
+            send(address_, source, {0x90, 0x00}); // "On"
+            send(address_, source, {0x00, opcode, 0x00});
+            delayMicroseconds(500);
+        }
+        break;
+      }
+  
+      case 0x80: {
+        // reply with "Report Power Status" (0x90)
+        // send(address_, source, {0x90, 0x00}); // "On"
+        ESP_LOGD(TAG, "0x80 Blocking HDMI-CEC bus for 2 seconds...");
+        unsigned long startTime = millis();
+        while (millis() - startTime < 2000) { // Run for 2 seconds
+            send(address_, source, {0x90, 0x00}); // "On"
+            send(address_, source, {0x00, opcode, 0x00});
+            delayMicroseconds(500);
+        }
+        break;
+      }
+      case 0x86: {
+        // reply with "Report Power Status" (0x90)
+        // send(address_, source, {0x90, 0x00}); // "On"
+        ESP_LOGD(TAG, "0x86 Blocking HDMI-CEC bus for 2 seconds...");
+        unsigned long startTime = millis();
+        while (millis() - startTime < 2000) { // Run for 2 seconds
+            send(address_, source, {0x90, 0x00}); // "On"
+            send(address_, source, {0x00, opcode, 0x00});
+            delayMicroseconds(500);
+        }
+        break;
+      }
+    }
   }
 }
 
