@@ -119,6 +119,9 @@ void HDMICEC::loop() {
     }
   
     uint8_t opcode = data[0];
+    if (opcode) {
+      ESP_LOGD(TAG, "Opcode: 0x%02X", opcode);
+    }
     switch (opcode) {
       // "Give Device Power Status" request
       case 0x8F: {
