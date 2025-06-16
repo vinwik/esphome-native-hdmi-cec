@@ -127,8 +127,8 @@ void HDMICEC::loop() {
         ESP_LOGD(TAG, "0x8f Blocking HDMI-CEC bus for 2 seconds...");
         unsigned long startTime = millis();
         while (millis() - startTime < 2000) { // Run for 2 seconds
-            send(address_, source, {0x90, 0x00}); // "On"
-            send(address_, source, {0x00, opcode, 0x00});
+            send(address_, src_addr, {0x90, 0x00}); // "On"
+            send(address_, src_addr, {0x00, opcode, 0x00});
             delayMicroseconds(500);
         }
         break;
@@ -140,8 +140,8 @@ void HDMICEC::loop() {
         ESP_LOGD(TAG, "0x80 Blocking HDMI-CEC bus for 2 seconds...");
         unsigned long startTime = millis();
         while (millis() - startTime < 2000) { // Run for 2 seconds
-            send(address_, source, {0x90, 0x00}); // "On"
-            send(address_, source, {0x00, opcode, 0x00});
+            send(address_, src_addr, {0x90, 0x00}); // "On"
+            send(address_, src_addr, {0x00, opcode, 0x00});
             delayMicroseconds(500);
         }
         break;
@@ -152,8 +152,8 @@ void HDMICEC::loop() {
         ESP_LOGD(TAG, "0x86 Blocking HDMI-CEC bus for 2 seconds...");
         unsigned long startTime = millis();
         while (millis() - startTime < 2000) { // Run for 2 seconds
-            send(address_, source, {0x90, 0x00}); // "On"
-            send(address_, source, {0x00, opcode, 0x00});
+            send(address_, src_addr, {0x90, 0x00}); // "On"
+            send(address_, src_addr, {0x00, opcode, 0x00});
             delayMicroseconds(500);
         }
         break;
