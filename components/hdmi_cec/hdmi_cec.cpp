@@ -117,8 +117,7 @@ void HDMICEC::loop() {
     if (data.empty()) {
       return;
     }
-  
-    uint8_t opcode = data[0];
+
     switch (opcode) {
       // "Give Device Power Status" request
       case 0x8F: {
